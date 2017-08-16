@@ -13,7 +13,17 @@
 
     <ul>
       {{#todos}}
-        <li> {{name}} | {{completed}} </li>
+        {{^completed}}
+          <li> <div class='mark-complete-button'>Mark Completed</div> {{name}} </li>
+        {{/completed}}
+      {{/todos}}
+    </ul>
+
+    <ul>
+      {{#todos}}
+        {{#completed}}
+          <li> {{name}} </li>
+        {{/completed}}
       {{/todos}}
     </ul>
   </body>

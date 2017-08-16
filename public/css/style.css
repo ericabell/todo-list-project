@@ -1,0 +1,17 @@
+html, body {
+  margin: 0 auto;
+}
+
+.todo-list {
+  color: rgb(71, 71, 70);
+}
+
+ul {
+  list-style-type: none;
+}
+
+.mark-complete-button {
+  display: inline;
+  border-style: solid;
+  border-width: 1px;
+}
