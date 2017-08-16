@@ -35,12 +35,8 @@ app.post('/todo', (req, res) => {
   console.log(`Add todo ${req.body.todo}`);
   // insert the todo
   // need to find a unique id
-  let largest = 1;
-  todos.todos.forEach( (todo) => {
-    if( todo.id > largest ) {
-      largest = todo.id;
-    }
-  });
+  let largest = todos.todos.length;
+  
   todos.todos.push({id: largest+1, name: req.body.todo, completed: false});
   res.redirect('/todo');
 })
