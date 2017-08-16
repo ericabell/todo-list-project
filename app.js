@@ -27,8 +27,7 @@ app.all('/', (req,res,next) => {
   next();
 });
 
-app.get('/', (req,res) => {
-  console.log(todos);
+app.get('/todo', (req,res) => {
   res.render('todos', todos);
 })
 
@@ -43,7 +42,7 @@ app.post('/todo', (req, res) => {
     }
   });
   todos.todos.push({id: largest+1, name: req.body.todo, completed: false});
-  res.redirect('/');
+  res.redirect('/todo');
 })
 
 app.post('/todo/:id', (req, res) => {
@@ -55,7 +54,7 @@ app.post('/todo/:id', (req, res) => {
     }
   });
 
-  res.redirect('/');
+  res.redirect('/todo');
 })
 
 app.listen(3000, () => {
