@@ -2,14 +2,24 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mustacheExpress = require('mustache-express');
 const expressValidator = require('express-validator');
+const jsonfile = require('jsonfile');
 
-let todos = {
-  todos : [
-    {id: 1, name: 'todo 1', completed: false},
-    {id: 2, name: 'todo 2', completed: false},
-    {id: 3, name: 'todo 3', completed: true}
-  ]
-}
+let todoFile = './todo_list.json'
+
+// let todos = {
+//   todos : [
+//     {id: 1, name: 'todo 1', completed: false},
+//     {id: 2, name: 'todo 2', completed: false},
+//     {id: 3, name: 'todo 3', completed: true}
+//   ]
+// }
+
+// jsonfile.writeFile(todoFile, todos, (err) => {
+//   console.log(err);
+// })
+
+// first time load the data from a file
+let todos = jsonfile.readFileSync(todoFile);
 
 let app = express();
 
@@ -36,9 +46,12 @@ app.post('/todo', (req, res) => {
   // insert the todo
   // need to find a unique id
   let largest = todos.todos.length;
-  
+
   todos.todos.push({id: largest+1, name: req.body.todo, completed: false});
-  res.redirect('/todo');
+  jsonfile.writeFile(todoFile, todos, (err) => {
+    console.log(err);
+    res.redirect('/todo');
+  })
 })
 
 app.post('/todo/:id', (req, res) => {
@@ -50,7 +63,10 @@ app.post('/todo/:id', (req, res) => {
     }
   });
 
-  res.redirect('/todo');
+  jsonfile.writeFile(todoFile, todos, (err) => {
+    console.log(err);
+    res.redirect('/todo');
+  })
 })
 
 app.listen(3000, () => {
