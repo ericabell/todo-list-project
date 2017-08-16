@@ -41,8 +41,15 @@ app.post('/todo', (req, res) => {
 app.post('/todo/:id', (req, res) => {
   console.log('post a todo');
   console.log('need to delete: ' + req.body.todo);
+  // changed the completed flag
+  todos.todos.forEach( (todo) => {
+    if( todo.id === Number(req.body.todo) ) {
+      todo.completed = true;
+    }
+  });
+  console.dir(todos);
 
-  res.send('success');
+  res.redirect('/');
 })
 
 app.listen(3000, () => {
