@@ -45,13 +45,21 @@ app.post('/todo', (req, res) => {
   console.log(`Add todo ${req.body.todo}`);
   // insert the todo
   // need to find a unique id
-  let largest = todos.todos.length;
+  req.checkBody("todo", "Todo was blank.").notEmpty();
+  let errors = req.validationErrors();
+  console.log(errors);
 
-  todos.todos.push({id: largest+1, name: req.body.todo, completed: false});
-  jsonfile.writeFile(todoFile, todos, (err) => {
-    console.log(err);
+  if( errors ){
     res.redirect('/todo');
-  })
+  } else {
+    let largest = todos.todos.length;
+
+    todos.todos.push({id: largest+1, name: req.body.todo, completed: false});
+    jsonfile.writeFile(todoFile, todos, (err) => {
+      console.log(err);
+      res.redirect('/todo');
+    })
+  }
 })
 
 app.post('/todo/:id', (req, res) => {
