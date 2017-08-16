@@ -14,7 +14,11 @@
     <ul>
       {{#todos}}
         {{^completed}}
-          <li> <div class='mark-complete-button'>Mark Completed</div> {{name}} </li>
+          <li>
+            <form class="todo-complete" action="/todo/{{id}}" method="post">
+              <input name="todo" value="{{id}}" type="submit"> {{name}}
+            </form>
+          </li>
         {{/completed}}
       {{/todos}}
     </ul>
@@ -26,5 +30,6 @@
         {{/completed}}
       {{/todos}}
     </ul>
+
   </body>
 </html>

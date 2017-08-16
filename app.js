@@ -22,6 +22,11 @@ app.use(bodyParser.urlencoded({ extended: false}));
 
 app.use(expressValidator());
 
+app.all('/', (req,res,next) => {
+  console.log(req.method, req.url);
+  next();
+});
+
 app.get('/', (req,res) => {
   res.render('todos', todos);
 })
@@ -31,6 +36,13 @@ app.post('/todo', (req, res) => {
   // insert the todo
   todos.todos.push({id: 3, name: req.body.todo, completed: false});
   res.render('todos', todos);
+})
+
+app.post('/todo/:id', (req, res) => {
+  console.log('post a todo');
+  console.log('need to delete: ' + req.body.todo);
+
+  res.send('success');
 })
 
 app.listen(3000, () => {
