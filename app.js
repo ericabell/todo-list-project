@@ -38,26 +38,22 @@ app.post('/todo', (req, res) => {
   // need to find a unique id
   let largest = 1;
   todos.todos.forEach( (todo) => {
-    console.log(todo);
     if( todo.id > largest ) {
       largest = todo.id;
     }
   });
-  console.log(largest+1);
   todos.todos.push({id: largest+1, name: req.body.todo, completed: false});
   res.redirect('/');
 })
 
 app.post('/todo/:id', (req, res) => {
-  console.log('post a todo');
-  console.log('need to delete: ' + req.body.todo);
+  console.log('need to update todo: ' + req.params.id);
   // changed the completed flag
   todos.todos.forEach( (todo) => {
-    if( todo.id === Number(req.body.todo) ) {
+    if( todo.id === Number(req.params.id) ) {
       todo.completed = true;
     }
   });
-  console.dir(todos);
 
   res.redirect('/');
 })
