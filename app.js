@@ -28,14 +28,24 @@ app.all('/', (req,res,next) => {
 });
 
 app.get('/', (req,res) => {
+  console.log(todos);
   res.render('todos', todos);
 })
 
 app.post('/todo', (req, res) => {
   console.log(`Add todo ${req.body.todo}`);
   // insert the todo
-  todos.todos.push({id: 3, name: req.body.todo, completed: false});
-  res.render('todos', todos);
+  // need to find a unique id
+  let largest = 1;
+  todos.todos.forEach( (todo) => {
+    console.log(todo);
+    if( todo.id > largest ) {
+      largest = todo.id;
+    }
+  });
+  console.log(largest+1);
+  todos.todos.push({id: largest+1, name: req.body.todo, completed: false});
+  res.redirect('/');
 })
 
 app.post('/todo/:id', (req, res) => {
