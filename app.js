@@ -5,8 +5,15 @@ const expressValidator = require('express-validator');
 
 let app = express();
 
+app.engine('mustache', mustacheExpress());
+app.set('view engine', 'mustache');
+
+app.use(bodyParser.urlencoded({ extended: false}));
+
+app.use(expressValidator());
+
 app.get('/', (req,res) => {
-  res.send('hello');
+  res.render('todos', {test: 'this is a test'});
 })
 
 app.listen(3000, () => {
