@@ -26,7 +26,9 @@ app.get('/', (req,res) => {
 
 app.post('/todo', (req, res) => {
   console.log(`Add todo ${req.body.todo}`);
-  res.send('success!')
+  // insert the todo
+  todos.todos.push({id: 3, name: req.body.todo, completed: false});
+  res.render('todos', todos);
 })
 
 app.listen(3000, () => {
