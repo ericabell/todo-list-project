@@ -5,9 +5,9 @@ const expressValidator = require('express-validator');
 
 let todos = {
   todos : [
-    {name: 'todo 1', completed: true},
-    {name: 'todo 2', completed: false},
-    {name: 'todo 3', completed: false},
+    {id: 1, name: 'todo 1', completed: true},
+    {id: 2, name: 'todo 2', completed: false},
+    {id: 3, name: 'todo 3', completed: false},
   ]
 }
 
@@ -22,6 +22,11 @@ app.use(expressValidator());
 
 app.get('/', (req,res) => {
   res.render('todos', todos);
+})
+
+app.post('/todo', (req, res) => {
+  console.log(`Add todo ${req.body.todo}`);
+  res.send('success!')
 })
 
 app.listen(3000, () => {
