@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mustacheExpress = require('mustache-express');
 const expressValidator = require('express-validator');
 const jsonfile = require('jsonfile');
+const morgan = require('morgan');
 
 let todoFile = './todo_list.json'
 
@@ -22,6 +23,8 @@ let todoFile = './todo_list.json'
 let todos = jsonfile.readFileSync(todoFile);
 
 let app = express();
+
+app.use(morgan('combined'));
 
 app.use(express.static('public'));
 
